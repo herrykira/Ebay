@@ -6,13 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.kinhangpoon.ebay.fragment.DetailFragment;
+import com.example.kinhangpoon.ebay.fragment.SubCategoryFragment;
 import com.example.kinhangpoon.ebay.fragment.ForgotFragment;
 import com.example.kinhangpoon.ebay.fragment.FragmentSwitch;
 import com.example.kinhangpoon.ebay.R;
 import com.example.kinhangpoon.ebay.fragment.LoginFragment;
 import com.example.kinhangpoon.ebay.fragment.MainFragment;
-import com.example.kinhangpoon.ebay.fragment.ProductCategoryListFragment;
+import com.example.kinhangpoon.ebay.fragment.CategoryFragment;
 import com.example.kinhangpoon.ebay.fragment.RegisterFragment;
+import com.example.kinhangpoon.ebay.fragment.ResetFragment;
 
 public class MainActivity extends AppCompatActivity implements FragmentSwitch {
 //    RecyclerView recyclerView;
@@ -48,23 +50,38 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
     }
 
     @Override
-    public void switchToProductList() {
-        ProductCategoryListFragment productCategoryListFragment = new ProductCategoryListFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.main,productCategoryListFragment).addToBackStack(null).commit();
+    public void switchToCategory() {
+        CategoryFragment categoryFragment = new CategoryFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main,categoryFragment).addToBackStack(null).commit();
     }
 
     @Override
-    public void switchToProductDetail(int position) {
+    public void switchToSubCategory(String id) {
         Bundle bundle = new Bundle();
-        bundle.putInt("position",position);
-        DetailFragment detailFragment = new DetailFragment();
-        detailFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.main,detailFragment).addToBackStack(null).commit();
+        bundle.putString("CategoryId",id);
+        SubCategoryFragment subCategoryFragment = new SubCategoryFragment();
+        subCategoryFragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.main,subCategoryFragment).addToBackStack(null).commit();
     }
 
     @Override
     public void switchToForgot() {
         ForgotFragment forgotFragment = new ForgotFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.main,forgotFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void switchToReset() {
+        ResetFragment resetFragment = new ResetFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main,resetFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void switchToDetail(String id) {
+        Bundle bundle = new Bundle();
+        bundle.putString("SubCategoryId",id);
+        DetailFragment detailFragment = new DetailFragment();
+        detailFragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.main,detailFragment).addToBackStack(null).commit();
     }
 }

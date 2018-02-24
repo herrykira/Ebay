@@ -33,7 +33,7 @@ import java.util.List;
  * Created by KinhangPoon on 22/2/2018.
  */
 
-public class ProductCategoryListFragment extends Fragment {
+public class CategoryFragment extends Fragment {
     SharedPreferences sharedPreferences;
     RecyclerView recyclerView;
     List<Category> categories;
@@ -51,7 +51,7 @@ public class ProductCategoryListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.product_category_list_fragment,container,false);
         sharedPreferences = getContext().getSharedPreferences("myinfo", Context.MODE_PRIVATE);
-        recyclerView = view.findViewById(R.id.recyclerView_product_list);
+        recyclerView = view.findViewById(R.id.recyclerView_category);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
@@ -74,11 +74,12 @@ public class ProductCategoryListFragment extends Fragment {
                         JSONArray jsonArray = jsonObject.getJSONArray("Category");
                         for(int i=0;i<jsonArray.length();i++){
                             JSONObject data = jsonArray.getJSONObject(i);
+                            String categoryId = data.getString("Id");
                             String categoryName = data.getString("CatagoryName");
                             String categoryDescription = data.getString("CatagoryDiscription");
                             String categoryImageUrl = data.getString("CatagoryImage");
 
-                            categories.add(new Category(categoryName,categoryDescription,categoryImageUrl));
+                            categories.add(new Category(categoryId,categoryName,categoryDescription,categoryImageUrl));
                         }
                         Category.categoryList = categories;
                         categoryAdapter = new CategoryAdapter(categories,getContext(),fragmentSwitch);

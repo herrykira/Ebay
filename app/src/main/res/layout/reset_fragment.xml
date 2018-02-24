@@ -8,90 +8,115 @@
     tools:layout_editor_absoluteY="81dp">
 
     <ImageView
-        android:id="@+id/imageView_logo2"
+        android:id="@+id/imageView_logo3"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="36dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+        android:layout_marginBottom="27dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ebay" />
 
     <LinearLayout
-        android:id="@+id/linearLayout5"
+        android:id="@+id/linearLayout7"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="222dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="132dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_logo2">
+        app:layout_constraintTop_toBottomOf="@+id/imageView_logo3">
 
         <TextView
-            android:id="@+id/textView_forgot_title"
+            android:id="@+id/textView_reset_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:text="Get your password"
+            android:text="Reset your password"
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/textView_forgot_content1"
+            android:id="@+id/textView_reset_content1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="Enter the mobile number associated with your account"
+            android:text="Enter the mobile number,old password and new password associated with your account"
             android:textSize="16dp" />
 
         <EditText
-            android:id="@+id/editText_get_password"
+            android:id="@+id/editText_reset_mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:ems="10"
+            android:hint="Mobile"
+            android:inputType="textPersonName"
+            android:text="" />
+
+        <EditText
+            android:id="@+id/editText_reset_old"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Old Password"
+            android:inputType="textPersonName"
+            android:text="" />
+
+        <EditText
+            android:id="@+id/editText_retset_new"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="New Password"
             android:inputType="textPersonName"
             android:text="" />
 
         <Button
-            android:id="@+id/button_get_password"
+            android:id="@+id/button_retset_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:background="#098"
-            android:text="Get the password"
+            android:text="Reset password"
             android:textColor="#fff" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout6"
+        android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
         <TextView
-            android:id="@+id/textView_forgot_content2"
+            android:id="@+id/textView_reset_content2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2.5dp"
-            android:text="Can't get your password?" />
+            android:text="Can't reset your password?" />
 
         <TextView
-            android:id="@+id/textView_forgot_register"
+            android:id="@+id/textView_reset_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2.5dp"
@@ -99,7 +124,7 @@
             android:textColor="#098" />
 
         <TextView
-            android:id="@+id/textView_forgot_contact"
+            android:id="@+id/textView_reset_contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2.5dp"
@@ -107,4 +132,5 @@
             android:text="Contact us"
             android:textColor="#098" />
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

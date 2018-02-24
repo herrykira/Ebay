@@ -4,12 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -29,6 +31,7 @@ public class RegisterFragment extends Fragment {
     EditText editTextRegisterName,editTextRegisterMobile,editTextRegisterPassword,editTextRegisterEmail;
     Button buttonRegister;
     FragmentSwitch fragmentSwitch;
+    TextView textViewResetRegister,textViewResetContact;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -43,19 +46,55 @@ public class RegisterFragment extends Fragment {
         editTextRegisterMobile = view.findViewById(R.id.editText_register_mobile);
         editTextRegisterName = view.findViewById(R.id.editText_register_name);
         editTextRegisterPassword = view.findViewById(R.id.editText_register_password);
+        textViewResetRegister = view.findViewById(R.id.textView_reset_register);
+        textViewResetContact = view.findViewById(R.id.textView_reset_contact);
+
         buttonRegister = view.findViewById(R.id.button_register);
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String name = editTextRegisterName.getText().toString();
-                final String mobile = editTextRegisterMobile.getText().toString();
-                final String email = editTextRegisterEmail.getText().toString();
-                final String password = editTextRegisterPassword.getText().toString();
-                registerRequestMethod(name,mobile,email,password);
+                registerUser();
             }
         });
+
+
+        textViewResetRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentSwitch.switchToRegister();
+            }
+        });
+
         return view;
+    }
+
+    public void registerUser(){
+        final String name = editTextRegisterName.getText().toString();
+        final String mobile = editTextRegisterMobile.getText().toString();
+        final String email = editTextRegisterEmail.getText().toString();
+        final String password = editTextRegisterPassword.getText().toString();
+        if(TextUtils.isEmpty(name)){
+            editTextRegisterName.setError("Please enter username");
+            editTextRegisterName.requestFocus();
+            return;
+        }
+        if(password.length()<6){
+            editTextRegisterPassword.setError("Please enter correct password (length of password must be at least 6)");
+            editTextRegisterPassword.requestFocus();
+            return;
+        }
+        if(!email.contains("@")){
+            editTextRegisterEmail.setError("Please enter correct Email Address");
+            editTextRegisterEmail.requestFocus();
+            return;
+        }
+        if(mobile.length()<10){
+            editTextRegisterMobile.setError("Please enter correct mobile (length of mobile must be at least 10)");
+            editTextRegisterMobile.requestFocus();
+            return;
+        }
+        registerRequestMethod(name,mobile,email,password);
     }
     public void registerRequestMethod(final String name, final String mobile, final String email, final String password){
         String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_reg.php?"

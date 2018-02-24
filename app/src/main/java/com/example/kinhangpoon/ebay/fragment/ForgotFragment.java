@@ -59,6 +59,11 @@ public class ForgotFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String mobile = editTextGetPassword.getText().toString();
+                if(mobile.length()<10){
+                    editTextGetPassword.setError("Please enter correct mobile (length of mobile must be at least 10)");
+                    editTextGetPassword.requestFocus();
+                    return;
+                }
                 getPasswordMethod(mobile);
             }
         });
