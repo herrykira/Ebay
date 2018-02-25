@@ -9,9 +9,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="51dp"
+        android:background="@drawable/customborder"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -48,26 +49,47 @@
             android:hint="Password"
             android:inputType="textPassword" />
 
-        <Button
-            android:id="@+id/button_login"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:background="#098"
-            android:text="Log In"
-            android:textColor="#fff"
-            tools:layout_editor_absoluteX="17dp"
-            tools:layout_editor_absoluteY="306dp" />
+            android:layout_height="45dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/button_login"
+                android:layout_width="120dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/buttonborder"
+                android:text="Log In"
+                android:gravity="center"
+                android:textColor="#fff"
+                tools:layout_editor_absoluteX="17dp"
+                tools:layout_editor_absoluteY="306dp" />
+            <Button
+                android:id="@+id/button_forgot"
+                android:layout_width="120dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+
+
+                android:background="@drawable/forgotborder"
+                android:text="Forgot?"
+                android:textColor="#fff"
+                tools:layout_editor_absoluteX="17dp"
+                tools:layout_editor_absoluteY="306dp" />
+        </LinearLayout>
+
         <Button
             android:id="@+id/button_reset"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginTop="5dp"
-            android:background="#098"
+            android:background="@drawable/buttonborder"
             android:text="Reset Password"
             android:textColor="#fff"
             tools:layout_editor_absoluteX="17dp"
@@ -76,34 +98,24 @@
         <Button
             android:id="@+id/button_register_for"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:background="#098"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/buttonborder"
             android:text="Register for a new account"
             android:textColor="#fff"
             tools:layout_editor_absoluteX="17dp"
             tools:layout_editor_absoluteY="306dp" />
 
-        <Button
-            android:id="@+id/button_forgot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/colorAccent"
-            android:text="Forgot?"
-            android:textColor="#fff"
-            tools:layout_editor_absoluteX="17dp"
-            tools:layout_editor_absoluteY="306dp" />
+
     </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView_logo"
         android:layout_width="100dp"
-        android:layout_height="0dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"

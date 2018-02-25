@@ -46,8 +46,7 @@ public class RegisterFragment extends Fragment {
         editTextRegisterMobile = view.findViewById(R.id.editText_register_mobile);
         editTextRegisterName = view.findViewById(R.id.editText_register_name);
         editTextRegisterPassword = view.findViewById(R.id.editText_register_password);
-        textViewResetRegister = view.findViewById(R.id.textView_reset_register);
-        textViewResetContact = view.findViewById(R.id.textView_reset_contact);
+
 
         buttonRegister = view.findViewById(R.id.button_register);
 
@@ -59,12 +58,6 @@ public class RegisterFragment extends Fragment {
         });
 
 
-        textViewResetRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentSwitch.switchToRegister();
-            }
-        });
 
         return view;
     }
@@ -130,4 +123,5 @@ public class RegisterFragment extends Fragment {
 //        requestQueue.add(stringRequest);
 
     }
+
 }

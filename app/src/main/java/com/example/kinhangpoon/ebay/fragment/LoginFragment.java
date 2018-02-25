@@ -62,6 +62,17 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String mobile = editTextLoginMobile.getText().toString();
                 String password = editTextLoginPassword.getText().toString();
+
+                if(mobile.length()<10){
+                    editTextLoginMobile.setError("Please enter correct mobile (length of mobile must be at least 10)");
+                    editTextLoginMobile.requestFocus();
+                    return;
+                }
+                if(password.length()<6){
+                    editTextLoginPassword.setError("Please enter correct password (length of password must be at least 6)");
+                    editTextLoginPassword.requestFocus();
+                    return;
+                }
                 loginRequestMethod(mobile,password);
             }
         });

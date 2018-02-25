@@ -43,17 +43,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         Category category = categories.get(position);
         final String categoryId = category.getCategoryId();
         holder.textViewCategoryName.setText(category.getCategoryName());
-        holder.textViewCategoryDescription.setText(category.getCategoryDescription());
+//        holder.textViewCategoryDescription.setText(category.getCategoryDescription());
         Picasso.with(context).load(category.getCategoryImageUrl()).into(holder.imageViewCategory);
         Typeface typefaceName = Typeface.createFromAsset(context.getAssets(),"THE_JACATRA.otf");
         holder.textViewCategoryName.setTypeface(typefaceName);
 
-        holder.textViewCategoryDescription.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentSwitch.switchToSubCategory(categoryId);
-            }
-        });
+//        holder.textViewCategoryDescription.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                fragmentSwitch.switchToSubCategory(categoryId);
+//            }
+//        });
         holder.textViewCategoryName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,13 +75,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewCategoryName, textViewCategoryDescription;
+        TextView textViewCategoryName;
+//        TextView textViewCategoryDescription;
         ImageView imageViewCategory;
         public MyViewHolder(View itemView) {
             super(itemView);
             textViewCategoryName = itemView.findViewById(R.id.textView_category_name);
             imageViewCategory = itemView.findViewById(R.id.imageView_category);
-            textViewCategoryDescription = itemView.findViewById(R.id.textView_category_description);
+//            textViewCategoryDescription = itemView.findViewById(R.id.textView_category_description);
         }
     }
 
