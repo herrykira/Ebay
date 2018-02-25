@@ -35,7 +35,8 @@
                     android:id="@+id/imageView_product"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_margin="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     app:srcCompat="@mipmap/ic_launcher_round" />
 
                 <LinearLayout
@@ -65,11 +66,12 @@
                         android:id="@+id/textView_product_list_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:text="Price" />
+                        android:layout_margin="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Price"
+                        android:textColor="@android:color/holo_red_light" />
                 </LinearLayout>
 
             </LinearLayout>

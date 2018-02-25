@@ -18,6 +18,7 @@ import com.example.kinhangpoon.ebay.fragment.MainFragment;
 import com.example.kinhangpoon.ebay.fragment.CategoryFragment;
 import com.example.kinhangpoon.ebay.fragment.RegisterFragment;
 import com.example.kinhangpoon.ebay.fragment.ResetFragment;
+import com.example.kinhangpoon.ebay.fragment.TaskFragment;
 
 public class MainActivity extends AppCompatActivity implements FragmentSwitch {
 //    RecyclerView recyclerView;
@@ -50,44 +51,46 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         else{
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main,new CategoryFragment())
+                    .replace(R.id.main,new TaskFragment())
                     .addToBackStack(null).commit();
         }
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        userId = sharedPreferences.getString("UserID","");
-//        appApiKey = sharedPreferences.getString("AppApiKey","");
-//        if(userId.equals("")|| appApiKey.equals("")){
-//            getMenuInflater().inflate(R.menu.loginmenu,menu);
-//        }
-//        else{
-//            getMenuInflater().inflate(R.menu.logoutmenu,menu);
-//        }
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if(id == R.id.logout){
-//            sharedPreferences = getSharedPreferences("myinfo", Context.MODE_PRIVATE);
-//            SharedPreferences.Editor editor = sharedPreferences.edit();
-//            editor.putString("UserID","");
-//            editor.putString("AppApiKey","");
-//
-//            editor.commit();
-//            userId = sharedPreferences.getString("UserID","");
-//            appApiKey = sharedPreferences.getString("AppApiKey","");
-//            Log.i("menu",userId);
-//            Log.i("menu",appApiKey);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        userId = sharedPreferences.getString("UserID","");
+        appApiKey = sharedPreferences.getString("AppApiKey","");
+        if(userId.equals("")|| appApiKey.equals("")){
+            getMenuInflater().inflate(R.menu.loginmenu,menu);
+        }
+        else{
+            getMenuInflater().inflate(R.menu.logoutmenu,menu);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.logout){
+            sharedPreferences = getSharedPreferences("myinfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("UserID","");
+            editor.putString("AppApiKey","");
+
+            editor.commit();
+            userId = sharedPreferences.getString("UserID","");
+            appApiKey = sharedPreferences.getString("AppApiKey","");
+            Log.i("menu",userId);
+            Log.i("menu",appApiKey);
 //            getSupportFragmentManager().beginTransaction().replace(R.id.main,new MainFragment()).addToBackStack(null).commit();
-//        }
-//        else{
-//            getSupportFragmentManager().beginTransaction().replace(R.id.main,new LoginFragment()).addToBackStack(null).commit();
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+            finish();
+            startActivity(getIntent());
+        }
+        else{
+            getSupportFragmentManager().beginTransaction().replace(R.id.main,new LoginFragment()).addToBackStack(null).commit();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void switchToMain() {
@@ -95,6 +98,15 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main,mainFragment)
+                .addToBackStack(null).commit();
+    }
+
+    @Override
+    public void switchToTask() {
+        TaskFragment taskFragment = new TaskFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main,taskFragment)
                 .addToBackStack(null).commit();
     }
 
@@ -123,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
                 .beginTransaction()
                 .replace(R.id.main,categoryFragment)
                 .addToBackStack(null).commit();
+        getSupportFragmentManager().popBackStackImmediate();
     }
 
     @Override

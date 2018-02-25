@@ -123,7 +123,7 @@ public class LoginFragment extends Fragment {
                         editor.putString("AppApiKey", appApiKey);
                         editor.commit();
 
-                        fragmentSwitch.switchToCategory();
+                        fragmentSwitch.switchToTask();
                     }
                     else{
                         JSONObject jsonObject = new JSONObject(response);

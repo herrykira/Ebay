@@ -1,6 +1,7 @@
 package com.example.kinhangpoon.ebay.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.textViewQuantity.setText("Quantity: "+product.getProductQuantity());
         holder.textViewProductName.setText("Name: "+product.getProductName());
         Picasso.with(context).load(product.getProductImageUrl()).into(holder.imageViewProduct);
+
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(),"DK Jambo.otf");
+        Typeface typeface1 = Typeface.createFromAsset(context.getAssets(),"SF Slapstick Comic.ttf");
+        holder.textViewProductName.setTypeface(typeface);
+        holder.textViewQuantity.setTypeface(typeface);
+        holder.textViewPrice.setTypeface(typeface);
+        holder.textViewDescription.setTypeface(typeface1);
     }
 
     @Override
