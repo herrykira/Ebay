@@ -8,10 +8,11 @@ import java.util.List;
  */
 
 public class Category {
-    String categoryName,categoryDescription,categoryImageUrl;
+    String categoryId,categoryName,categoryDescription,categoryImageUrl;
     public static List<Category> categoryList = new ArrayList<>();
 
-    public Category(String categoryName, String categoryDescription, String categoryImageUrl) {
+    public Category(String categoryId, String categoryName, String categoryDescription, String categoryImageUrl) {
+        this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryDescription = categoryDescription;
         this.categoryImageUrl = categoryImageUrl;
@@ -39,5 +40,13 @@ public class Category {
 
     public void setCategoryImageUrl(String categoryImageUrl) {
         this.categoryImageUrl = categoryImageUrl;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 }

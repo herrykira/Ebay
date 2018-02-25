@@ -1,6 +1,7 @@
 package com.example.kinhangpoon.ebay.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,20 +41,30 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         Category category = categories.get(position);
-        holder.textViewTitle.setText(category.getCategoryName());
-        Picasso.with(context).load(category.getCategoryImageUrl()).into(holder.imageViewTitle);
+        final String categoryId = category.getCategoryId();
+        holder.textViewCategoryName.setText(category.getCategoryName());
+//        holder.textViewCategoryDescription.setText(category.getCategoryDescription());
+        Picasso.with(context).load(category.getCategoryImageUrl()).into(holder.imageViewCategory);
+        Typeface typefaceName = Typeface.createFromAsset(context.getAssets(),"THE_JACATRA.otf");
+        holder.textViewCategoryName.setTypeface(typefaceName);
 
-        holder.textViewTitle.setOnClickListener(new View.OnClickListener() {
+//        holder.textViewCategoryDescription.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                fragmentSwitch.switchToSubCategory(categoryId);
+//            }
+//        });
+        holder.textViewCategoryName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentSwitch.switchToProductDetail(position);
+                fragmentSwitch.switchToSubCategory(categoryId);
             }
         });
 
-        holder.imageViewTitle.setOnClickListener(new View.OnClickListener() {
+        holder.imageViewCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentSwitch.switchToProductDetail(position);
+                fragmentSwitch.switchToSubCategory(categoryId);
             }
         });
     }
@@ -64,12 +75,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewTitle;
-        ImageView imageViewTitle;
+        TextView textViewCategoryName;
+//        TextView textViewCategoryDescription;
+        ImageView imageViewCategory;
         public MyViewHolder(View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.textView_category_title);
-            imageViewTitle = itemView.findViewById(R.id.imageView_category_title);
+            textViewCategoryName = itemView.findViewById(R.id.textView_category_name);
+            imageViewCategory = itemView.findViewById(R.id.imageView_category);
+//            textViewCategoryDescription = itemView.findViewById(R.id.textView_category_description);
         }
     }
 

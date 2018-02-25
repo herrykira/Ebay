@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -34,7 +35,7 @@ import java.util.Map;
 public class LoginFragment extends Fragment {
 
     EditText editTextLoginMobile,editTextLoginPassword;
-    Button buttonLogin, buttonRegisterFor,buttonForgot;
+    Button buttonLogin, buttonRegisterFor,buttonForgot,buttonReset;
     SharedPreferences sharedPreferences;
     FragmentSwitch fragmentSwitch;
 
@@ -54,16 +55,34 @@ public class LoginFragment extends Fragment {
         buttonLogin = view.findViewById(R.id.button_login);
         buttonRegisterFor = view.findViewById(R.id.button_register_for);
         buttonForgot = view.findViewById(R.id.button_forgot);
+        buttonReset = view.findViewById(R.id.button_reset);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String mobile = editTextLoginMobile.getText().toString();
                 String password = editTextLoginPassword.getText().toString();
+
+                if(mobile.length()<10){
+                    editTextLoginMobile.setError("Please enter correct mobile (length of mobile must be at least 10)");
+                    editTextLoginMobile.requestFocus();
+                    return;
+                }
+                if(password.length()<6){
+                    editTextLoginPassword.setError("Please enter correct password (length of password must be at least 6)");
+                    editTextLoginPassword.requestFocus();
+                    return;
+                }
                 loginRequestMethod(mobile,password);
             }
         });
 
+        buttonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentSwitch.switchToReset();
+            }
+        });
         buttonRegisterFor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,27 +102,40 @@ public class LoginFragment extends Fragment {
     }
 
     public void loginRequestMethod(final String mobile, final String password){
-        String url ="http://rjtmobile.com/ansari/shopingcart/androidapp/shop_login.php?";
-//        mobile="+mobile+"&password="+password;
+        String url ="http://rjtmobile.com/ansari/shopingcart/androidapp/shop_login.php?mobile="+mobile+"&password="+password;
         String tag_json_obj = "json_obj_login";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e("response",response.toString());
+
                 try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    JSONObject data = jsonArray.getJSONObject(0);
-                    String userId = data.getString("UserID");
-                    Log.e("userId",userId);
-                    String appApiKey = data.getString("AppApiKey ");
-                    Log.e("api",appApiKey);
+                    if(response.contains("success")) {
+                        JSONArray jsonArray = new JSONArray(response);
+                        JSONObject data = jsonArray.getJSONObject(0);
+                        String userId = data.getString("UserID");
+                        Log.e("userId", userId);
+                        String appApiKey = data.getString("AppApiKey ");
+                        Log.e("api", appApiKey);
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("UserID",userId);
-                    editor.putString("AppApiKey",appApiKey);
-                    editor.commit();
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("UserID", userId);
+                        editor.putString("AppApiKey", appApiKey);
+                        editor.commit();
 
-                    fragmentSwitch.switchToProductList();
+                        fragmentSwitch.switchToCategory();
+                    }
+                    else{
+                        JSONObject jsonObject = new JSONObject(response);
+                        JSONArray jsonArray = jsonObject.getJSONArray("msg");
+                        String msg = jsonArray.getString(0);
+                        if(msg.trim().equals("Mobile Number not register")){
+                            Toast.makeText(getContext(),msg.trim(),Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Toast.makeText(getContext(),"Incorrect Password",Toast.LENGTH_LONG).show();
+                        }
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -116,13 +148,13 @@ public class LoginFragment extends Fragment {
 
             }
         }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put("mobile",mobile);
-                params.put("password",password);
-                return params;
-            }
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String,String> params = new HashMap<>();
+//                params.put("mobile",mobile);
+//                params.put("password",password);
+//                return params;
+//            }
         };
         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
     }
