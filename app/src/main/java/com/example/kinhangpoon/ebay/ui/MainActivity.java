@@ -18,6 +18,7 @@ import com.example.kinhangpoon.ebay.fragment.MainFragment;
 import com.example.kinhangpoon.ebay.fragment.CategoryFragment;
 import com.example.kinhangpoon.ebay.fragment.RegisterFragment;
 import com.example.kinhangpoon.ebay.fragment.ResetFragment;
+import com.example.kinhangpoon.ebay.fragment.TaskFragment;
 
 public class MainActivity extends AppCompatActivity implements FragmentSwitch {
 //    RecyclerView recyclerView;
@@ -50,52 +51,78 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         else{
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main,new CategoryFragment())
+                    .replace(R.id.main,new TaskFragment())
                     .addToBackStack(null).commit();
         }
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        userId = sharedPreferences.getString("UserID","");
-//        appApiKey = sharedPreferences.getString("AppApiKey","");
-//        if(userId.equals("")|| appApiKey.equals("")){
-//            getMenuInflater().inflate(R.menu.loginmenu,menu);
-//        }
-//        else{
-//            getMenuInflater().inflate(R.menu.logoutmenu,menu);
-//        }
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if(id == R.id.logout){
-//            sharedPreferences = getSharedPreferences("myinfo", Context.MODE_PRIVATE);
-//            SharedPreferences.Editor editor = sharedPreferences.edit();
-//            editor.putString("UserID","");
-//            editor.putString("AppApiKey","");
-//
-//            editor.commit();
-//            userId = sharedPreferences.getString("UserID","");
-//            appApiKey = sharedPreferences.getString("AppApiKey","");
-//            Log.i("menu",userId);
-//            Log.i("menu",appApiKey);
-//            getSupportFragmentManager().beginTransaction().replace(R.id.main,new MainFragment()).addToBackStack(null).commit();
-//        }
-//        else{
-//            getSupportFragmentManager().beginTransaction().replace(R.id.main,new LoginFragment()).addToBackStack(null).commit();
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        userId = sharedPreferences.getString("UserID","");
+        appApiKey = sharedPreferences.getString("AppApiKey","");
+        if(userId.equals("")|| appApiKey.equals("")){
+            getMenuInflater().inflate(R.menu.loginmenu,menu);
+        }
+        else{
+            getMenuInflater().inflate(R.menu.logoutmenu,menu);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.logout){
+            sharedPreferences = getSharedPreferences("myinfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("UserID","");
+            editor.putString("AppApiKey","");
+
+            editor.commit();
+            userId = sharedPreferences.getString("UserID","");
+            appApiKey = sharedPreferences.getString("AppApiKey","");
+            Log.i("menu",userId);
+            Log.i("menu",appApiKey);
+            getSupportFragmentManager().beginTransaction().replace(R.id.main,new MainFragment()).addToBackStack(null).commit();
+            finish();
+            startActivity(getIntent());
+        }
+        else{
+            getSupportFragmentManager().beginTransaction().replace(R.id.main,new LoginFragment()).addToBackStack(null).commit();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        int fragments = getSupportFragmentManager().getBackStackEntryCount();
+        if (fragments == 1) {
+            finish();
+        } else {
+            if (getFragmentManager().getBackStackEntryCount() > 1) {
+                getFragmentManager().popBackStack();
+            } else {
+                super.onBackPressed();
+            }
+        }
+
+    }
 
     @Override
     public void switchToMain() {
         MainFragment mainFragment = new MainFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,mainFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,mainFragment)
+                .commit();
+    }
+
+    @Override
+    public void switchToTask() {
+        TaskFragment taskFragment = new TaskFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack(null).replace(R.id.main,taskFragment)
+                .commit();
     }
 
     @Override
@@ -103,8 +130,8 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         LoginFragment loginFragment = new LoginFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,loginFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,loginFragment)
+                .commit();
     }
 
     @Override
@@ -112,8 +139,8 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         RegisterFragment registerFragment = new RegisterFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,registerFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,registerFragment)
+                .commit();
     }
 
     @Override
@@ -121,8 +148,9 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         CategoryFragment categoryFragment = new CategoryFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,categoryFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,categoryFragment)
+                .commit();
+        getSupportFragmentManager().popBackStackImmediate();
     }
 
     @Override
@@ -133,8 +161,8 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         subCategoryFragment.setArguments(bundle);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,subCategoryFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,subCategoryFragment)
+                .commit();
     }
 
     @Override
@@ -142,8 +170,8 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         ForgotFragment forgotFragment = new ForgotFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,forgotFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,forgotFragment)
+                .commit();
     }
 
     @Override
@@ -151,8 +179,8 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         ResetFragment resetFragment = new ResetFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,resetFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,resetFragment)
+                .commit();
     }
 
     @Override
@@ -163,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         productListFragment.setArguments(bundle);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,productListFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,productListFragment)
+                .commit();
     }
 }

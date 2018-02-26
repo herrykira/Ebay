@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageView_logo_main"
         android:layout_width="100dp"
-        android:layout_height="0dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="17dp"
         android:layout_marginTop="28dp"
         app:layout_constraintBottom_toTopOf="@+id/item_login_register_layout"
@@ -23,9 +23,8 @@
         android:id="@+id/item_login_register_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:background="#176"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/customborder"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView_main"
         app:layout_constraintHorizontal_bias="0.0"
@@ -33,15 +32,27 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_logo_main">
 
-        <TextView
-            android:id="@+id/textView_login_register"
-            android:layout_width="300dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:text="Sign in so we can personalize your eBay experience"
-            android:textSize="20dp" />
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:srcCompat="@drawable/people"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/textView_login_register"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="Sign in so we can personalize your eBay experience"
+                android:textSize="20dp"
+                android:textColor="#fff"/>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/login_register_button_layout"
@@ -54,18 +65,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:background="#fff"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="15dp"
                 android:text="Register"
-                android:textColor="#098" />
+                android:background="#098"
+                android:textColor="#fff" />
 
             <Button
                 android:id="@+id/button_main_login"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="15dp"
                 android:layout_weight="1"
-                android:background="#fff"
                 android:text="Sign in"
-                android:textColor="#098" />
+                android:background="#098"
+                android:textColor="#fff" />
         </LinearLayout>
     </LinearLayout>
 

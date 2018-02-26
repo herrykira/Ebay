@@ -132,20 +132,20 @@ public class SubCategoryFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.logoutmenu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        sharedPreferences = getContext().getSharedPreferences("myinfo", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("UserID", "");
-        editor.putString("AppApiKey", "");
-        editor.commit();
-        fragmentSwitch.switchToMain();
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.logoutmenu, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        sharedPreferences = getContext().getSharedPreferences("myinfo", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putString("UserID", "");
+//        editor.putString("AppApiKey", "");
+//        editor.commit();
+//        fragmentSwitch.switchToMain();
+//        return super.onOptionsItemSelected(item);
+//    }
 }

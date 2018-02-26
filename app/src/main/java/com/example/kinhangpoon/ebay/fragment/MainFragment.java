@@ -38,7 +38,7 @@ public class MainFragment extends Fragment {
         ButtonLogin = view.findViewById(R.id.button_main_login);
         ButtonRegister = view.findViewById(R.id.button_main_register);
         recyclerView = view.findViewById(R.id.recyclerView_main);
-        mainAdapter = new MainAdapter();
+        mainAdapter = new MainAdapter(getContext(),fragmentSwitch);
         recyclerView.setAdapter(mainAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
@@ -59,4 +59,5 @@ public class MainFragment extends Fragment {
         });
         return view;
     }
+
 }

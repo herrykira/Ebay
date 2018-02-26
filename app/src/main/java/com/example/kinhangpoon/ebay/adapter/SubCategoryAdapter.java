@@ -1,6 +1,7 @@
 package com.example.kinhangpoon.ebay.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,11 +47,17 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         holder.textViewSubCategoryName.setText(subCategory.getSubCategoryName());
         holder.textViewSubCategoryDescription.setText(subCategory.getSubCategoryDescription());
         Picasso.with(context).load(subCategory.getSubCategoryImageUrl()).into(holder.imageViewSubCategory);
-//                animation
+
+    //animation
       animation = AnimationUtils.loadAnimation(context,R.anim.fade_in);
       holder.imageViewSubCategory.startAnimation(animation);
       holder.textViewSubCategoryDescription.startAnimation(animation);
       holder.textViewSubCategoryName.startAnimation(animation);
+
+      //fonts
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(),"OldNewspaperTypes.ttf");
+        holder.textViewSubCategoryName.setTypeface(typeface);
+        holder.textViewSubCategoryDescription.setTypeface(typeface);
 
         holder.textViewSubCategoryName.setOnClickListener(new View.OnClickListener() {
             @Override

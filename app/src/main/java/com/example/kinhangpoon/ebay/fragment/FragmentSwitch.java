@@ -6,6 +6,7 @@ package com.example.kinhangpoon.ebay.fragment;
 
 public interface FragmentSwitch {
     public void switchToMain();
+    public void switchToTask();
     public void switchToLogin();
     public void switchToRegister();
     public void switchToCategory();
