@@ -2,16 +2,17 @@ package com.example.kinhangpoon.ebay.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.kinhangpoon.ebay.fragment.CategoryFragment;
-import com.example.kinhangpoon.ebay.fragment.OrderFragment;
+import com.example.kinhangpoon.ebay.fragment.OrderCheckFragment;
 
 /**
  * Created by KinhangPoon on 25/2/2018.
  */
 
-public class TaskPagerAdapter extends FragmentStatePagerAdapter {
+public class TaskPagerAdapter extends FragmentPagerAdapter {
     int tabcount;
 
     public TaskPagerAdapter(FragmentManager fm, int tabcount) {
@@ -26,7 +27,7 @@ public class TaskPagerAdapter extends FragmentStatePagerAdapter {
                 CategoryFragment categoryFragment = new CategoryFragment();
                 return categoryFragment;
             case 1:
-                OrderFragment orderFragment = new OrderFragment();
+                OrderCheckFragment orderFragment = new OrderCheckFragment();
                 return orderFragment;
             default:
                 return null;

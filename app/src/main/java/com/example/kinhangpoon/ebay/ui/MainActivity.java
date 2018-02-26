@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
             appApiKey = sharedPreferences.getString("AppApiKey","");
             Log.i("menu",userId);
             Log.i("menu",appApiKey);
-//            getSupportFragmentManager().beginTransaction().replace(R.id.main,new MainFragment()).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main,new MainFragment()).addToBackStack(null).commit();
             finish();
             startActivity(getIntent());
         }
@@ -93,12 +93,27 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
     }
 
     @Override
+    public void onBackPressed() {
+        int fragments = getSupportFragmentManager().getBackStackEntryCount();
+        if (fragments == 1) {
+            finish();
+        } else {
+            if (getFragmentManager().getBackStackEntryCount() > 1) {
+                getFragmentManager().popBackStack();
+            } else {
+                super.onBackPressed();
+            }
+        }
+
+    }
+
+    @Override
     public void switchToMain() {
         MainFragment mainFragment = new MainFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,mainFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,mainFragment)
+                .commit();
     }
 
     @Override
@@ -106,8 +121,8 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         TaskFragment taskFragment = new TaskFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,taskFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,taskFragment)
+                .commit();
     }
 
     @Override
@@ -115,8 +130,8 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         LoginFragment loginFragment = new LoginFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,loginFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,loginFragment)
+                .commit();
     }
 
     @Override
@@ -124,8 +139,8 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         RegisterFragment registerFragment = new RegisterFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,registerFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,registerFragment)
+                .commit();
     }
 
     @Override
@@ -133,8 +148,8 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         CategoryFragment categoryFragment = new CategoryFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,categoryFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,categoryFragment)
+                .commit();
         getSupportFragmentManager().popBackStackImmediate();
     }
 
@@ -146,8 +161,8 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         subCategoryFragment.setArguments(bundle);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,subCategoryFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,subCategoryFragment)
+                .commit();
     }
 
     @Override
@@ -155,8 +170,8 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         ForgotFragment forgotFragment = new ForgotFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,forgotFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,forgotFragment)
+                .commit();
     }
 
     @Override
@@ -164,8 +179,8 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         ResetFragment resetFragment = new ResetFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,resetFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,resetFragment)
+                .commit();
     }
 
     @Override
@@ -176,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         productListFragment.setArguments(bundle);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main,productListFragment)
-                .addToBackStack(null).commit();
+                .addToBackStack(null).replace(R.id.main,productListFragment)
+                .commit();
     }
 }
