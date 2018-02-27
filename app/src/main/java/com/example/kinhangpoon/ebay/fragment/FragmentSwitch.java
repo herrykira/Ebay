@@ -14,4 +14,5 @@ public interface FragmentSwitch {
     public void switchToForgot();
     public void switchToReset();
     public void switchToDetail(String id);
+    public void switchToCart();
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/textView_shopping_cart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Shopping Cart"
+            android:textSize="25dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_shopping_cart"
+            android:layout_width="300dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_height="300dp" />
+        <Button
+            android:id="@+id/button_place_order"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#5641f4"
+            android:textColor="#fff"
+            android:text="Place Order"/>
+        <Button
+            android:id="@+id/button_cancel_order"
+            android:layout_width="150dp"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#fff"
+            android:background="#f44149"
+            android:text="Cancel"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,11 +1,18 @@
 package com.example.kinhangpoon.ebay.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Created by KinhangPoon on 24/2/2018.
  */
 
 public class Product {
     String productId,productName,productQuantity,productPrize,productDescription,productImageUrl;
+
+    public static List<Product> shoppingCart = new ArrayList<>();
+    public static HashMap<String,Integer> map = new HashMap<>();
 
     public Product(String productId, String productName, String productQuantity, String productPrize, String productDescription, String productImageUrl) {
         this.productId = productId;

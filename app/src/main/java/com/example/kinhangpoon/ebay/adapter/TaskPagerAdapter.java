@@ -3,10 +3,9 @@ package com.example.kinhangpoon.ebay.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.kinhangpoon.ebay.fragment.CategoryFragment;
-import com.example.kinhangpoon.ebay.fragment.OrderCheckFragment;
+import com.example.kinhangpoon.ebay.fragment.OrderHistoryFragment;
 
 /**
  * Created by KinhangPoon on 25/2/2018.
@@ -27,8 +26,8 @@ public class TaskPagerAdapter extends FragmentPagerAdapter {
                 CategoryFragment categoryFragment = new CategoryFragment();
                 return categoryFragment;
             case 1:
-                OrderCheckFragment orderFragment = new OrderCheckFragment();
-                return orderFragment;
+                OrderHistoryFragment orderHistoryFragment = new OrderHistoryFragment();
+                return orderHistoryFragment;
             default:
                 return null;
         }

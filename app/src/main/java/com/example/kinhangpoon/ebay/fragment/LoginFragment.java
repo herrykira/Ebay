@@ -121,6 +121,7 @@ public class LoginFragment extends Fragment {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("UserID", userId);
                         editor.putString("AppApiKey", appApiKey);
+                        editor.putString("Mobile",mobile);
                         editor.commit();
 
                         fragmentSwitch.switchToTask();

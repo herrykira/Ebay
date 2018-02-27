@@ -18,13 +18,14 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 super.run();
                 try {
-                    sleep(1000);
+                    sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
                 Intent i = new Intent(SplashScreen.this,MainActivity.class);
                 startActivity(i);
+                finish();
             }
         };
 
