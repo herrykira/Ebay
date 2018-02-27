@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#fff"
+    android:background="#e8f97a"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:layout_editor_absoluteY="81dp">
@@ -53,25 +53,27 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/button_login"
                 android:layout_width="120dp"
                 android:layout_height="35dp"
-                android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/buttonborder"
-                android:text="Log In"
                 android:gravity="center"
+                android:text="Log In"
                 android:textColor="#fff"
                 tools:layout_editor_absoluteX="17dp"
                 tools:layout_editor_absoluteY="306dp" />
+
             <Button
                 android:id="@+id/button_forgot"
                 android:layout_width="120dp"
                 android:layout_height="35dp"
-                android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
 
 
@@ -86,8 +88,8 @@
             android:id="@+id/button_reset"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/buttonborder"
             android:text="Reset Password"
@@ -99,10 +101,10 @@
             android:id="@+id/button_register_for"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/buttonborder"
             android:text="Register for a new account"
             android:textColor="#fff"

@@ -56,6 +56,7 @@ public class TaskFragment extends Fragment implements TabLayout.OnTabSelectedLis
         return view;
     }
 
+
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         viewPager.setCurrentItem(tab.getPosition());
