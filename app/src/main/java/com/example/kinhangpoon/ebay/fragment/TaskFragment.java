@@ -28,7 +28,7 @@ public class TaskFragment extends Fragment implements TabLayout.OnTabSelectedLis
         viewPager = view.findViewById(R.id.viewPager_task);
 
         tabLayout.addTab(tabLayout.newTab().setText("Category"));
-        tabLayout.addTab(tabLayout.newTab().setText("Order"));
+        tabLayout.addTab(tabLayout.newTab().setText("Order History"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         tabLayout.setOnTabSelectedListener(this);

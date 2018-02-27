@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.kinhangpoon.ebay.fragment.CartFragment;
+import com.example.kinhangpoon.ebay.fragment.OrderHistoryFragment;
 import com.example.kinhangpoon.ebay.fragment.ProductListFragment;
 import com.example.kinhangpoon.ebay.fragment.SubCategoryFragment;
 import com.example.kinhangpoon.ebay.fragment.ForgotFragment;
@@ -85,43 +86,47 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
             appApiKey = sharedPreferences.getString("AppApiKey","");
             Log.i("menu",userId);
             Log.i("menu",appApiKey);
-            getSupportFragmentManager().beginTransaction().replace(R.id.main,new MainFragment()).addToBackStack(null).commit();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.main,new MainFragment()).addToBackStack(null).commit();
             finish();
             startActivity(getIntent());
         }
         else if(id == R.id.login){
             getSupportFragmentManager().beginTransaction().replace(R.id.main,new LoginFragment()).addToBackStack(null).commit();
         }
-        else{
+        else if(id ==R.id.shoppingCart){
             getSupportFragmentManager().beginTransaction().replace(R.id.main,new CartFragment()).addToBackStack(null).commit();
+        }
+        else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.main,new OrderHistoryFragment()).addToBackStack(null).commit();
         }
         return super.onOptionsItemSelected(item);
     }
 
 
-//        @Override
-//        public void onBackPressed() {
-//            int fragments = getSupportFragmentManager().getBackStackEntryCount();
-//            if (fragments == 1) {
-//                Toast.makeText(MainActivity.this,"one",Toast.LENGTH_LONG).show();
-//                finish();
-//            } else {
-//                if (getFragmentManager().getBackStackEntryCount() > 1) {
-//                    getFragmentManager().popBackStack();
-//                    Toast.makeText(MainActivity.this,"two",Toast.LENGTH_LONG).show();
-//                } else {
-//                    Toast.makeText(MainActivity.this,"three"+getFragmentManager()
-//                            .getBackStackEntryCount(),Toast.LENGTH_LONG).show();
-//                    TaskFragment taskFragment = new TaskFragment();
-//                    getSupportFragmentManager()
-//                            .beginTransaction()
-//                            .addToBackStack(null).replace(R.id.main,taskFragment)
-//                            .commit();
-//                    //super.onBackPressed();
-//                }
-//            }
-//
-//        }
+        @Override
+        public void onBackPressed() {
+            int fragments = getSupportFragmentManager().getBackStackEntryCount();
+            if (fragments == 1) {
+                Toast.makeText(MainActivity.this,"one",Toast.LENGTH_LONG).show();
+                finish();
+            } else {
+                if (getFragmentManager().getBackStackEntryCount() > 1) {
+                    getFragmentManager().popBackStack();
+                    Toast.makeText(MainActivity.this,"two",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(MainActivity.this,"three"+getFragmentManager()
+                            .getBackStackEntryCount(),Toast.LENGTH_LONG).show();
+//                    CategoryFragment categoryFragment = new CategoryFragment();
+                    TaskFragment taskFragment = new TaskFragment();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(null).replace(R.id.main,taskFragment)
+                            .commit();
+                    //super.onBackPressed();
+                }
+            }
+
+        }
 
     @Override
     public void switchToMain() {
