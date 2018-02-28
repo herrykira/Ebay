@@ -32,8 +32,8 @@ public class TaskFragment extends Fragment implements TabLayout.OnTabSelectedLis
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         tabLayout.setOnTabSelectedListener(this);
-
-        taskPagerAdapter = new TaskPagerAdapter(getFragmentManager(),2);
+/** Important: Must use the child FragmentManager or you will see side effects. */
+        taskPagerAdapter = new TaskPagerAdapter(getChildFragmentManager(),2);
         viewPager.setAdapter(taskPagerAdapter);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -56,6 +56,11 @@ public class TaskFragment extends Fragment implements TabLayout.OnTabSelectedLis
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
