@@ -40,7 +40,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         String status = getStatus(orderHistory.getOrderStatus());
         holder.textViewStatus.setText("Status: " + status);
         holder.textViewItemName.setText("Name: " + orderHistory.getItemName());
-        holder.textViewPrice.setText("Price: & " + orderHistory.getFinalPrice());
+        holder.textViewPrice.setText("Price: $ " + orderHistory.getFinalPrice());
     }
 
     @Override

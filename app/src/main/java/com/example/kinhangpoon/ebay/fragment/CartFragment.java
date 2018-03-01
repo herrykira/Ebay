@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -34,7 +35,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -54,8 +57,11 @@ public class CartFragment extends Fragment {
     SharedPreferences sharedPreferences;
     String userId,appApiKey,mobile;
     TextView textViewShoppingCart;
-    String clientToken="eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJjMTliYjFlNTExNzdhNzFjODJiMWU0YjBjYTQ0ZjBlMGY0YjNhZWZjN2MzYjYyYjkzZDdlYjU3NDBjODA3ZDMyfGNyZWF0ZWRfYXQ9MjAxOC0wMi0yN1QxNDo0Njo0OC43NzkzNjA5NzIrMDAwMFx1MDAyNm1lcmNoYW50X2lkPTM0OHBrOWNnZjNiZ3l3MmJcdTAwMjZwdWJsaWNfa2V5PTJuMjQ3ZHY4OWJxOXZtcHIiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvMzQ4cGs5Y2dmM2JneXcyYi9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzLzM0OHBrOWNnZjNiZ3l3MmIvY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vY2xpZW50LWFuYWx5dGljcy5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tLzM0OHBrOWNnZjNiZ3l3MmIifSwidGhyZWVEU2VjdXJlRW5hYmxlZCI6dHJ1ZSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImRpc3BsYXlOYW1lIjoiQWNtZSBXaWRnZXRzLCBMdGQuIChTYW5kYm94KSIsImNsaWVudElkIjpudWxsLCJwcml2YWN5VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3BwIiwidXNlckFncmVlbWVudFVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS90b3MiLCJiYXNlVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhc3NldHNVcmwiOiJodHRwczovL2NoZWNrb3V0LnBheXBhbC5jb20iLCJkaXJlY3RCYXNlVXJsIjpudWxsLCJhbGxvd0h0dHAiOnRydWUsImVudmlyb25tZW50Tm9OZXR3b3JrIjp0cnVlLCJlbnZpcm9ubWVudCI6Im9mZmxpbmUiLCJ1bnZldHRlZE1lcmNoYW50IjpmYWxzZSwiYnJhaW50cmVlQ2xpZW50SWQiOiJtYXN0ZXJjbGllbnQzIiwiYmlsbGluZ0FncmVlbWVudHNFbmFibGVkIjp0cnVlLCJtZXJjaGFudEFjY291bnRJZCI6ImFjbWV3aWRnZXRzbHRkc2FuZGJveCIsImN1cnJlbmN5SXNvQ29kZSI6IlVTRCJ9LCJtZXJjaGFudElkIjoiMzQ4cGs5Y2dmM2JneXcyYiIsInZlbm1vIjoib2ZmIn0=";
+    String GET_TOKEN_URL = "http://rjtmobile.com/aamir/braintree-paypal-payment/main.php?";
+    String SEND_PAYMENT_DETAIL_URL = "http://rjtmobile.com/aamir/braintree-paypal-payment/mycheckout.php?";
+    String clientToken;
     static final int BRAIN_TREE_REQUEST_CODE = 4949;
+    Map<String,String> paramHash;
 
     @Override
     public void onAttach(Context context) {
@@ -80,6 +86,7 @@ public class CartFragment extends Fragment {
         recyclerView.setAdapter(cartAdapter);
 
         sharedPreferences = getContext().getSharedPreferences("myinfo",Context.MODE_PRIVATE);
+        getClientTokenFromAppServer();
         userId = sharedPreferences.getString("UserID","");
         Log.e("CartUserID",userId+"");
         appApiKey = sharedPreferences.getString("AppApiKey","");
@@ -93,39 +100,16 @@ public class CartFragment extends Fragment {
         buttonOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //paypal
-                onBrainTreeSubmit(v);
-//                if (!userId.equals("") && !appApiKey.equals("")) {
-//                    List<Product> products = Product.shoppingCart;
-//
-//                    for (int i = 0; i < products.size(); i++) {
-//                        Product product = products.get(i);
-//                        String productId = product.getProductId();
-//                        String productName = product.getProductName();
-//                        String productQuantity = product.getProductQuantity();
-//                        String productPrice = product.getProductPrize();
-//                        String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/orders.php?&item_id="+productId+"&item_names="+productName+"&item_quantity="+productQuantity+
-//                                "&final_price="+productPrice+"&mobile="+mobile+"&api_key="+appApiKey+"&user_id="+userId;
-//                        String tag_json_obj = "json_obj_order"+i;
-//                        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                Log.e("orderResponse",response.toString());
-//                            }
-//                        }, new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//
-//                            }
-//                        });
-//                        AppController.getInstance().addToRequestQueue(stringRequest,tag_json_obj);
-//                    }
-//                    Product.shoppingCart = new ArrayList<>();
-//                    fragmentSwitch.switchToCategory();
-//                }
-//                else{
-//                    fragmentSwitch.switchToLogin();
-//                }
+                if (!userId.equals("") && !appApiKey.equals("")) {
+
+                    //paypal
+                    onBrainTreeSubmit(v);
+
+
+                }
+                else{
+                    fragmentSwitch.switchToLogin();
+                }
             }
         });
         buttonCancel.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +132,19 @@ public class CartFragment extends Fragment {
             if(RESULT_OK == resultCode){
                 DropInResult dropInResult = data.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT);
                 String payment_notice = dropInResult.getPaymentMethodNonce().getNonce();
-                Log.e("Successful","sucessful");
+                Log.i("payment_notice",payment_notice);
+                int amount =0 ;
+                for(Product product:Product.shoppingCart){
+                    amount+=Integer.valueOf(product.getProductPrize());
+                }
+                Log.i("amount",amount+"");
+                paramHash = new HashMap<>();
+                paramHash.put("amount",amount+"");
+                paramHash.put("nonce", payment_notice);
+
+                sendToMerchant();
+
+                Log.e("MerchantSuccessful","sucessful");
             }
             else if (requestCode == RESULT_CANCELED){
                 Log.e("Canceled","User canceled payment");
@@ -163,7 +159,7 @@ public class CartFragment extends Fragment {
 
     public void getClientTokenFromAppServer(){
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-        asyncHttpClient.get("", new TextHttpResponseHandler() {
+        asyncHttpClient.get(GET_TOKEN_URL, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("Token Failed","Failed Token");
@@ -172,7 +168,72 @@ public class CartFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 clientToken = responseString;
+                Log.i("clientToken",clientToken);
             }
         });
+    }
+    public void sendToOrder(){
+        List<Product> products = Product.shoppingCart;
+        Log.i("productSize",products.size()+"");
+        String productId="";
+        String productName="";
+        String productQuantity="0";
+        String productPrice="0";
+        for (int i = 0; i < products.size(); i++) {
+            Product product = products.get(i);
+            productId = productId + product.getProductId()+ ",";
+            productName = productName + product.getProductName()+",";
+            productQuantity = (Integer.valueOf(productQuantity) + Integer.valueOf(product.getProductQuantity()))+"";
+            productPrice = Double.valueOf(productPrice) + Double.valueOf(product.getProductPrize()) + "";
+        }
+        String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/orders.php?&item_id="+productId+"&item_names="+productName+"&item_quantity="+productQuantity+
+                    "&final_price="+productPrice+"&mobile="+mobile+"&api_key="+appApiKey+"&user_id="+userId;
+        String tag_json_obj = "json_obj_order";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("orderResponse",response.toString());
+                Toast.makeText(getContext(),"Successfully order",Toast.LENGTH_SHORT).show();
+            }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+        AppController.getInstance().addToRequestQueue(stringRequest,tag_json_obj);
+
+        Product.shoppingCart = new ArrayList<>();
+        fragmentSwitch.switchToCategory();
+    }
+    public void sendToMerchant(){
+        String tag_json_obj = "json_obj_merchant";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, SEND_PAYMENT_DETAIL_URL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                if(response.contains("Successful")){
+                    Toast.makeText(getContext(),"Your transaction successful",Toast.LENGTH_SHORT).show();
+                    Log.i("Merchant_response",response);
+                    sendToOrder();
+                }
+                else{
+                    Toast.makeText(getContext(),"Your transaction failed",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("Merchant_error",error.getMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                return paramHash;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(stringRequest,tag_json_obj);
     }
 }
