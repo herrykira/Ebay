@@ -68,7 +68,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         /**
          * set font for category name
          */
-        Typeface typefaceName = Typeface.createFromAsset(context.getAssets(),"THE_JACATRA.otf");
+        Typeface typefaceName = Typeface.createFromAsset(context.getAssets(),"BuffaloInline2Grunge.ttf");
         holder.textViewCategoryName.setTypeface(typefaceName);
 
         holder.textViewCategoryName.setOnClickListener(new View.OnClickListener() {

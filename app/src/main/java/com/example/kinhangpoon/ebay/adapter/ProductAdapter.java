@@ -89,6 +89,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     Product.shoppingCart.add(new Product(product.getProductId(),product.getProductName()
                             ,1+"",product.getProductPrize(),product.getProductDescription()
                             ,product.getProductImageUrl()));
+                    Toast.makeText(context,"Successfully add it",Toast.LENGTH_SHORT).show();
                 }
                 else{
                     double price = Double.valueOf(Product.shoppingCart.get(Product.map.get(product.getProductId())).getProductPrize());
@@ -96,12 +97,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     if(number<Integer.valueOf(product.getProductQuantity())) {
                         Product.shoppingCart.get(Product.map.get(product.getProductId())).setProductQuantity((number + 1) + "");
                         Product.shoppingCart.get(Product.map.get(product.getProductId())).setProductPrize((price + Double.valueOf(product.getProductPrize())) + "");
+                        Toast.makeText(context,"Successfully add it",Toast.LENGTH_SHORT).show();
                     }
                     else{
                         Toast.makeText(context,"You have achieved max number of items",Toast.LENGTH_SHORT).show();
                     }
                 }
-                Toast.makeText(context,"Successfully add it",Toast.LENGTH_SHORT).show();
                 Log.e("cartSizeAfter",Product.shoppingCart.size()+"");
             }
         });
