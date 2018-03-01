@@ -33,7 +33,13 @@ import java.util.Map;
  * Created by KinhangPoon on 23/2/2018.
  */
 
+/**
+ * reset password function
+ */
 public class ResetFragment extends Fragment {
+    /**
+     * declaration
+     */
     EditText editTextResetMobile,editTextResetOld,editTextResetNew;
     Button buttonReset;
     FragmentSwitch fragmentSwitch;
@@ -49,6 +55,9 @@ public class ResetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.reset_fragment,container,false);
+        /**
+         * initialization
+         */
         editTextResetNew = view.findViewById(R.id.editText_retset_new);
         editTextResetOld = view.findViewById(R.id.editText_reset_old);
         editTextResetMobile = view.findViewById(R.id.editText_reset_mobile);
@@ -59,21 +68,31 @@ public class ResetFragment extends Fragment {
         buttonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * get data from edit text
+                 */
                 String mobile = editTextResetMobile.getText().toString();
                 String oldPassword = editTextResetOld.getText().toString();
                 String newPassword = editTextResetNew.getText().toString();
-
+                /**
+                 * make sure length of mobile number is no less than 10
+                 */
                 if(mobile.length()<10){
                     editTextResetMobile.setError("Please enter correct mobile (length of mobile must be at least 10)");
                     editTextResetMobile.requestFocus();
                     return;
                 }
-
+                /**
+                 * make sure length of password is longer than 5
+                 */
                 if(oldPassword.length()<6){
                     editTextResetOld.setError("Please enter correct password (length of password must be at least 6)");
                     editTextResetOld.requestFocus();
                     return;
                 }
+                /**
+                 * make sure length of password is longer than 5
+                 */
                 if(newPassword.length()<6){
                     editTextResetNew.setError("Please enter correct password (length of password must be at least 6)");
                     editTextResetNew.requestFocus();
@@ -98,9 +117,14 @@ public class ResetFragment extends Fragment {
         return view;
     }
 
+    /**
+     * use volley to connect network
+     * @param mobile
+     * @param oldPassword
+     * @param newPassword
+     */
     public void resetRequstMethod(final String mobile, final String oldPassword, final String newPassword){
         String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_reset_pass.php?&mobile="+mobile+"&password="+oldPassword+"&newpassword="+newPassword;
-//        String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_reset_pass.php?";
         Log.e("reset",url);
         String tag_json_obj = "json_obj_reset";
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
@@ -129,14 +153,7 @@ public class ResetFragment extends Fragment {
 
             }
         }){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String,String> params = new HashMap<>();
-//                params.put("mobile",mobile);
-//                params.put("password",oldPassword);
-//                params.put("newpassword",newPassword);
-//                return params;
-//            }
+
         };
         AppController.getInstance().addToRequestQueue(stringRequest,tag_json_obj);
     }

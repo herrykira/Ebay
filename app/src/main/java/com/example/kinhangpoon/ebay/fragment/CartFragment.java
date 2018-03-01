@@ -48,8 +48,14 @@ import static android.app.Activity.RESULT_OK;
  * Created by KinhangPoon on 26/2/2018.
  */
 
+/**
+ * implement function of shopping cart
+ */
 public class CartFragment extends Fragment {
 
+    /**
+     * declaration
+     */
     RecyclerView recyclerView;
     CartAdapter cartAdapter;
     FragmentSwitch fragmentSwitch;
@@ -76,8 +82,14 @@ public class CartFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView_shopping_cart);
         textViewShoppingCart = view.findViewById(R.id.textView_shopping_cart);
 
+        /**
+         * set fonts for the title
+         */
         Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "WILLG___.TTF");
         textViewShoppingCart.setTypeface(typeface);
+        /**
+         * set up recyclerView
+         */
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
@@ -86,7 +98,13 @@ public class CartFragment extends Fragment {
         recyclerView.setAdapter(cartAdapter);
 
         sharedPreferences = getContext().getSharedPreferences("myinfo",Context.MODE_PRIVATE);
+        /**
+         * call this method to get client token for preparation, initialize client SDK
+         */
         getClientTokenFromAppServer();
+        /**
+         * get information from sharedPreferences to know whether user log in or log out
+         */
         userId = sharedPreferences.getString("UserID","");
         Log.e("CartUserID",userId+"");
         appApiKey = sharedPreferences.getString("AppApiKey","");
@@ -100,12 +118,14 @@ public class CartFragment extends Fragment {
         buttonOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * log in
+                 */
                 if (!userId.equals("") && !appApiKey.equals("")) {
-
-                    //paypal
+                    /**
+                     *submit payment information
+                     */
                     onBrainTreeSubmit(v);
-
-
                 }
                 else{
                     fragmentSwitch.switchToLogin();
@@ -126,22 +146,43 @@ public class CartFragment extends Fragment {
         startActivityForResult(dropInRequest.getIntent(getContext()),BRAIN_TREE_REQUEST_CODE);
     }
 
+    /**
+     * SDK communicates information and returns a payment method nonce
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        /**
+         * make sure the request come from right side
+         */
         if(requestCode == BRAIN_TREE_REQUEST_CODE){
             if(RESULT_OK == resultCode){
                 DropInResult dropInResult = data.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT);
+                /**
+                 * get the payment method nonce
+                 */
                 String payment_notice = dropInResult.getPaymentMethodNonce().getNonce();
                 Log.i("payment_notice",payment_notice);
                 int amount =0 ;
+                /**
+                 * calculate the amount for the whole order
+                 */
                 for(Product product:Product.shoppingCart){
                     amount+=Integer.valueOf(product.getProductPrize());
                 }
                 Log.i("amount",amount+"");
+                /**
+                 * save amount and payment method nonce for parameters in volley post request
+                 */
                 paramHash = new HashMap<>();
                 paramHash.put("amount",amount+"");
                 paramHash.put("nonce", payment_notice);
 
+                /**
+                 * send the payment method nonce and amount to server
+                 */
                 sendToMerchant();
 
                 Log.e("MerchantSuccessful","sucessful");
@@ -179,6 +220,9 @@ public class CartFragment extends Fragment {
         String productName="";
         String productQuantity="0";
         String productPrice="0";
+        /**
+         * make conclusion for order in terms of product id, name, quantity, price
+         */
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
             productId = productId + product.getProductId()+ ",";
@@ -203,7 +247,13 @@ public class CartFragment extends Fragment {
             });
         AppController.getInstance().addToRequestQueue(stringRequest,tag_json_obj);
 
+        /**
+         * clear the shopping cart after payment and order
+         */
         Product.shoppingCart = new ArrayList<>();
+        /**
+         * switch to category page
+         */
         fragmentSwitch.switchToCategory();
     }
     public void sendToMerchant(){
@@ -212,9 +262,15 @@ public class CartFragment extends Fragment {
 
             @Override
             public void onResponse(String response) {
+                /**
+                 * successful: uses server SDK to create a transaction
+                 */
                 if(response.contains("Successful")){
                     Toast.makeText(getContext(),"Your transaction successful",Toast.LENGTH_SHORT).show();
                     Log.i("Merchant_response",response);
+                    /**
+                     * create order for client
+                     */
                     sendToOrder();
                 }
                 else{

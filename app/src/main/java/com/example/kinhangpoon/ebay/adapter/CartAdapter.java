@@ -20,10 +20,21 @@ import com.squareup.picasso.Picasso;
  * Created by KinhangPoon on 26/2/2018.
  */
 
+/**
+ * *Shopping Cart Adapter: puts data to the shopping cart recyclerView
+ */
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
+    /**
+     * Declaration for context and interface
+     */
     Context context;
     FragmentSwitch fragmentSwitch;
 
+    /**
+     * Constructor for CartAdapter
+     * @param context
+     * @param fragmentSwitch
+     */
     public CartAdapter(Context context,FragmentSwitch fragmentSwitch) {
         this.context = context;
         this.fragmentSwitch = fragmentSwitch;
@@ -31,6 +42,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public CartViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        /**
+         * initialize view
+         */
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item,parent,false);
 
         return new CartViewHolder(view);
@@ -38,7 +52,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public void onBindViewHolder(CartViewHolder holder, final int position) {
+        /**
+         * get the item from shopping cart based on position
+         */
         Product product = Product.shoppingCart.get(position);
+        /**
+         * assign values for items in viewholder
+         */
         holder.textViewProductCartName.setText("Name: "+product.getProductName());
         holder.textViewProductCartQuantity.setText("Quantity: "+product.getProductQuantity());
         holder.textViewProductCartPrice.setText("Price: $"+product.getProductPrize());
@@ -46,6 +66,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * set up alertDialog
+                 */
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Alert");
                 builder.setMessage("Are you sure to delete it ?");
@@ -73,12 +96,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return Product.shoppingCart.size();
     }
 
+    /**
+     * Define ViewHolder for shopping cart
+     */
     public class CartViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * Declaration
+         */
         TextView textViewProductCartName,textViewProductCartQuantity,textViewProductCartPrice;
         ImageView imageViewProductCart;
         Button buttonDelete;
         public CartViewHolder(View itemView) {
             super(itemView);
+            /**
+             * initialization
+             */
             textViewProductCartName = itemView.findViewById(R.id.textView_product_name_cart);
             textViewProductCartPrice = itemView.findViewById(R.id.textView_product_price_cart);
             textViewProductCartQuantity = itemView.findViewById(R.id.textView_product_quantity_cart);

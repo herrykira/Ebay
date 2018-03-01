@@ -32,7 +32,13 @@ import java.util.Map;
  * Created by KinhangPoon on 22/2/2018.
  */
 
+/**
+ * implement forgot password function
+ */
 public class ForgotFragment extends Fragment {
+    /**
+     * declaration
+     */
     Button buttonGetPassword;
     TextView textViewRegister;
     TextView textViewContact;
@@ -50,6 +56,9 @@ public class ForgotFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.forgot_fragment,container,false);
+        /**
+         * initialization
+         */
         buttonGetPassword = view.findViewById(R.id.button_get_password);
         textViewRegister = view.findViewById(R.id.textView_forgot_register);
         textViewContact = view.findViewById(R.id.textView_forgot_contact);
@@ -59,6 +68,9 @@ public class ForgotFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String mobile = editTextGetPassword.getText().toString();
+                /**
+                 * make sure length of mobile is >=10
+                 */
                 if(mobile.length()<10){
                     editTextGetPassword.setError("Please enter correct mobile (length of mobile must be at least 10)");
                     editTextGetPassword.requestFocus();
@@ -85,6 +97,9 @@ public class ForgotFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 Log.i("getPassword",response.toString());
+                /**
+                 * get data from json array by url
+                 */
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     JSONObject data = jsonArray.getJSONObject(0);
