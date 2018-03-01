@@ -37,7 +37,13 @@ import java.util.List;
  * Created by KinhangPoon on 25/2/2018.
  */
 
+/**
+ * show Order History
+ */
 public class OrderHistoryFragment extends Fragment {
+    /**
+     * declaration
+     */
     RecyclerView recyclerView;
     SharedPreferences sharedPreferences;
     TextView textViewOrderHistory;
@@ -47,6 +53,9 @@ public class OrderHistoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.order_history_fragment,container,false);
+        /**
+         * initialization and set up recyclerView
+         */
         recyclerView = view.findViewById(R.id.recyclerView_order_history);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -59,16 +68,24 @@ public class OrderHistoryFragment extends Fragment {
         Log.i("orderHistory",mobile);
         orderHistories = new ArrayList<>();
 
+        /**
+         * set font for title
+         */
         Typeface typeface = Typeface.createFromAsset(getContext().getAssets(),"WILLG___.TTF");
         textViewOrderHistory.setTypeface(typeface);
 
+        /**
+         * get info from sharedPreferences
+         */
         String  userId = sharedPreferences.getString("UserID","");
         Log.i("orderHistoryId",userId);
         String appApiKey = sharedPreferences.getString("AppApiKey","");
         Log.i("orderHistoryapi",appApiKey);
 
+        /**
+         * log in state
+         */
         if(!userId.equals("") && !appApiKey.equals("")){
-            //http://rjtmobile.com/ansari/shopingcart/androidapp/order_history.php?&mobile=9294228483&api_key=9c775e7dd06f5cfc5fb3b94dc1ea16ae&user_id=1196
 
             String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/order_history.php?&mobile="+mobile+"&api_key="+appApiKey+"&user_id="+userId;
             String tag_json_obj = "json_obj_order_history";
@@ -77,6 +94,9 @@ public class OrderHistoryFragment extends Fragment {
                 @Override
                 public void onResponse(String response) {
                     Log.e("orderHistory",response);
+                    /**
+                     * get data from json object by url
+                     */
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         JSONArray jsonArray = jsonObject.getJSONArray("Order History");
@@ -87,6 +107,9 @@ public class OrderHistoryFragment extends Fragment {
                             String ItemQuantity = data.getString("ItemQuantity");
                             String FinalPrice = data.getString("FinalPrice");
                             String OrderStatus = data.getString("OrderStatus");
+                            /**
+                             * add each order in order history list
+                             */
                             orderHistories.add(new OrderHistory(OrderID,ItemName,ItemQuantity,FinalPrice,OrderStatus));
 
                         }

@@ -16,7 +16,13 @@ import com.example.kinhangpoon.ebay.adapter.TaskPagerAdapter;
  * Created by KinhangPoon on 25/2/2018.
  */
 
+/**
+ * show task fragment
+ */
 public class TaskFragment extends Fragment implements TabLayout.OnTabSelectedListener {
+    /**
+     * declaration
+     */
     TabLayout tabLayout;
     ViewPager viewPager;
     TaskPagerAdapter taskPagerAdapter;
@@ -24,6 +30,9 @@ public class TaskFragment extends Fragment implements TabLayout.OnTabSelectedLis
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.task_fragment,container,false);
+        /**
+         * initialization
+         */
         tabLayout = view.findViewById(R.id.tablayout_task);
         viewPager = view.findViewById(R.id.viewPager_task);
 
@@ -35,7 +44,9 @@ public class TaskFragment extends Fragment implements TabLayout.OnTabSelectedLis
 /** Important: Must use the child FragmentManager or you will see side effects. */
         taskPagerAdapter = new TaskPagerAdapter(getChildFragmentManager(),2);
         viewPager.setAdapter(taskPagerAdapter);
-
+        /**
+         * set up viewpager
+         */
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

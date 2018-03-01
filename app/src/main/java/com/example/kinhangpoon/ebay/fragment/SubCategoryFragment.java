@@ -45,7 +45,13 @@ import java.util.Map;
  * Created by KinhangPoon on 22/2/2018.
  */
 
+/**
+ * shows the sub category
+ */
 public class SubCategoryFragment extends Fragment {
+    /**
+     * declaration
+     */
     SharedPreferences sharedPreferences;
     String subCategoryId, subCategoryName, subCategoryDescription, subCategoryImageUrl;
     List<SubCategory> subCategories;
@@ -66,6 +72,9 @@ public class SubCategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sub_category_fragment, container, false);
 
+        /**
+         * initialization
+         */
         recyclerView = view.findViewById(R.id.recyclerView_sub_category);
         textViewSubCategory = view.findViewById(R.id.textView_sub_category);
         Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "WILLG___.TTF");
@@ -75,6 +84,9 @@ public class SubCategoryFragment extends Fragment {
         sharedPreferences = getContext().getSharedPreferences("myinfo", Context.MODE_PRIVATE);
         subCategories = new ArrayList<>();
 
+        /**
+         * log in state
+         */
         if (!sharedPreferences.getString("UserID", "").equals("") && !sharedPreferences.getString("AppApiKey", "").equals("")) {
             final String api_key = sharedPreferences.getString("AppApiKey", "");
             Log.e("subApi", api_key);
@@ -101,7 +113,6 @@ public class SubCategoryFragment extends Fragment {
                         subCategoryAdapter = new SubCategoryAdapter(subCategories, getContext(), fragmentSwitch);
                         recyclerView.setHasFixedSize(true);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//                        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),LinearLayoutManager.VERTICAL));
                         recyclerView.setAdapter(subCategoryAdapter);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -115,37 +126,11 @@ public class SubCategoryFragment extends Fragment {
 
                 }
             }) {
-//                @Override
-//                protected Map<String, String> getParams() throws AuthFailureError {
-//                    Map<String,String> params = new HashMap<>();
-//                    params.put("Id",subId);
-//                    params.put("api_key",api_key);
-//                    params.put("user_id",user_id);
-//                    return params;
-//                }
+
             };
             AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
         }
-//        //animation
-//        animation = AnimationUtils.loadAnimation(getContext(),R.anim.fade_in);
-//        imageViewDetail.startAnimation(animation);
         return view;
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.logoutmenu, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        sharedPreferences = getContext().getSharedPreferences("myinfo", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putString("UserID", "");
-//        editor.putString("AppApiKey", "");
-//        editor.commit();
-//        fragmentSwitch.switchToMain();
-//        return super.onOptionsItemSelected(item);
-//    }
 }

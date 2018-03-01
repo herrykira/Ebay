@@ -40,7 +40,13 @@ import java.util.List;
  * Created by KinhangPoon on 22/2/2018.
  */
 
+/**
+ * shows the category
+ */
 public class CategoryFragment extends Fragment {
+    /**
+     * declaration
+     */
     SharedPreferences sharedPreferences;
     RecyclerView recyclerView;
     List<Category> categories;
@@ -60,17 +66,28 @@ public class CategoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.product_category_list_fragment,container,false);
+        /**
+         * initialization
+         */
         sharedPreferences = getContext().getSharedPreferences("myinfo", Context.MODE_PRIVATE);
         textViewCategory = view.findViewById(R.id.textView_category);
         recyclerView = view.findViewById(R.id.recyclerView_category);
+        /**
+         * set up recyclerView
+         */
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
-//        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), GridLayoutManager.VERTICAL));
+        /**
+         * set up font for title
+         */
         Typeface typeface = Typeface.createFromAsset(getContext().getAssets(),"WILLG___.TTF");
         textViewCategory.setTypeface(typeface);
         categories = new ArrayList<>();
 
+        /**
+         * log in state
+         */
         if(!sharedPreferences.getString("UserID","").equals("") && !sharedPreferences.getString("AppApiKey","").equals("")){
              userId = sharedPreferences.getString("UserID","");
             Log.i("shareuserId",userId);
@@ -84,6 +101,9 @@ public class CategoryFragment extends Fragment {
                 public void onResponse(String response) {
                     Log.e("productlist",response.toString());
                     try {
+                        /**
+                         * get data from json object
+                         */
                         JSONObject jsonObject = new JSONObject(response);
                         JSONArray jsonArray = jsonObject.getJSONArray("Category");
                         for(int i=0;i<jsonArray.length();i++){
@@ -92,7 +112,9 @@ public class CategoryFragment extends Fragment {
                             String categoryName = data.getString("CatagoryName");
                             String categoryDescription = data.getString("CatagoryDiscription");
                             String categoryImageUrl = data.getString("CatagoryImage");
-
+                            /**
+                             * save data in a list
+                             */
                             categories.add(new Category(categoryId,categoryName,categoryDescription,categoryImageUrl));
                         }
                         Category.categoryList = categories;
@@ -114,24 +136,4 @@ public class CategoryFragment extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.logoutmenu,menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        sharedPreferences = getContext().getSharedPreferences("myinfo", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//            editor.putString("UserID","");
-//            editor.putString("AppApiKey","");
-//            editor.commit();
-//            userId = sharedPreferences.getString("UserID","");
-//            appApiKey = sharedPreferences.getString("AppApiKey","");
-//            Log.i("menu",userId);
-//            Log.i("menu",appApiKey);
-//        fragmentSwitch.switchToMain();
-//        return super.onOptionsItemSelected(item);
-//    }
 }

@@ -32,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /**
+         * set up sharepreference
+         */
         sharedPreferences = getSharedPreferences("myinfo", Context.MODE_PRIVATE);
 
 //        recyclerView = findViewById(R.id.recyclerview_main);
@@ -58,6 +61,12 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
                     .addToBackStack(null).commit();
         }
     }
+
+    /**
+     * set up menu for log in, log out, shopping cart, order history
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         userId = sharedPreferences.getString("UserID","");
@@ -102,32 +111,9 @@ public class MainActivity extends AppCompatActivity implements FragmentSwitch {
         return super.onOptionsItemSelected(item);
     }
 
-
-//        @Override
-//        public void onBackPressed() {
-//            int fragments = getSupportFragmentManager().getBackStackEntryCount();
-//            if (fragments == 1) {
-//                Toast.makeText(MainActivity.this,"one",Toast.LENGTH_LONG).show();
-//                finish();
-//            } else {
-//                if (getFragmentManager().getBackStackEntryCount() > 1) {
-//                    getFragmentManager().popBackStack();
-//                    Toast.makeText(MainActivity.this,"two",Toast.LENGTH_LONG).show();
-//                } else {
-//                    Toast.makeText(MainActivity.this,"three"+getFragmentManager()
-//                            .getBackStackEntryCount(),Toast.LENGTH_LONG).show();
-////                    CategoryFragment categoryFragment = new CategoryFragment();
-//                    TaskFragment taskFragment = new TaskFragment();
-//                    getSupportFragmentManager()
-//                            .beginTransaction()
-//                            .addToBackStack(null).replace(R.id.main,taskFragment)
-//                            .commit();
-//                    //super.onBackPressed();
-//                }
-//            }
-//
-//        }
-
+    /**
+     * implementation of the interface
+     */
     @Override
     public void switchToMain() {
         MainFragment mainFragment = new MainFragment();

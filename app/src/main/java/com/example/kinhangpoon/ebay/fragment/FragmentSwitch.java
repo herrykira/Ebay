@@ -4,6 +4,9 @@ package com.example.kinhangpoon.ebay.fragment;
  * Created by KinhangPoon on 22/2/2018.
  */
 
+/**
+ * interface for switching different fragments
+ */
 public interface FragmentSwitch {
     public void switchToMain();
     public void switchToTask();

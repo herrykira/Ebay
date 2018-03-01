@@ -6,6 +6,9 @@ import android.os.Bundle;
 
 import com.example.kinhangpoon.ebay.R;
 
+/**
+ * splashScreen for 2s
+ */
 public class SplashScreen extends AppCompatActivity {
 
     @Override

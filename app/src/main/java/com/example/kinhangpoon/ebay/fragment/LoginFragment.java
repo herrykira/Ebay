@@ -149,13 +149,6 @@ public class LoginFragment extends Fragment {
 
             }
         }){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String,String> params = new HashMap<>();
-//                params.put("mobile",mobile);
-//                params.put("password",password);
-//                return params;
-//            }
         };
         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
     }

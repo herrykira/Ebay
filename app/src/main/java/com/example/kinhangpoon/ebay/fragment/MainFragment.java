@@ -19,7 +19,13 @@ import com.example.kinhangpoon.ebay.adapter.MainAdapter;
  * Created by KinhangPoon on 22/2/2018.
  */
 
+/**
+ * main page for the app
+ */
 public class MainFragment extends Fragment {
+    /**
+     * declaration
+     */
     Button ButtonLogin,ButtonRegister;
     FragmentSwitch fragmentSwitch;
     RecyclerView recyclerView;
@@ -35,10 +41,16 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment,container,false);
+        /**
+         * initialization
+         */
         ButtonLogin = view.findViewById(R.id.button_main_login);
         ButtonRegister = view.findViewById(R.id.button_main_register);
         recyclerView = view.findViewById(R.id.recyclerView_main);
         mainAdapter = new MainAdapter(getContext(),fragmentSwitch);
+        /**
+         * set up recycler View
+         */
         recyclerView.setAdapter(mainAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
